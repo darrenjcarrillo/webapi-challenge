@@ -4,7 +4,7 @@ const router = require("express").Router();
 // IMPORT MODEL
 const projectModel = require("../../data/helpers/projectModel.js");
 
-// GET
+// GET  ALL PROJECTS
 router.get("/", (req, res) => {
   console.log("Projects Router GET/");
 
@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
       res.status(500).json(err);
     });
 });
-// GET ALL ACTIONS
+// GET ALL PROJECTS BY ID
 router.get("/:id", (req, res) => {
   console.log("Projects Router GET/");
 
@@ -34,12 +34,13 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
+// GET ALL PROJECTS & ACTIONS
+router.get("/:id/actions", (req, res) => {
   console.log("Projects Router GET id");
   const { id } = req.params;
 
   projectModel
-    .get(id)
+    .getProjectActions(id)
     .then(result => {
       console.log(`GET BY ID`, result);
       res.status(200).json(result);
@@ -49,6 +50,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// POST PROJECTS
 router.post("/", (req, res) => {
   console.log("projectModel post/");
   const newProject = req.body;
@@ -65,6 +67,7 @@ router.post("/", (req, res) => {
     });
 });
 
+// UPDATE PROJECTS
 router.put("/:id", (req, res) => {
   console.log("projectModel Put/");
   const { id } = req.params;
@@ -81,6 +84,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
+// DELETE PROJECTS
 router.delete("/:id", (req, res) => {
   console.log("projectModel Remove/");
   const { id } = req.params;
